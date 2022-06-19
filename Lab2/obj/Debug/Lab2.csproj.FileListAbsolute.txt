@@ -1,0 +1,7 @@
+G:\Visual Studio CS\Lab2\bin\Debug\Lab2.exe.config
+G:\Visual Studio CS\Lab2\bin\Debug\Lab2.exe
+G:\Visual Studio CS\Lab2\bin\Debug\Lab2.pdb
+G:\Visual Studio CS\Lab2\obj\Debug\Lab2.csproj.CoreCompileInputs.cache
+G:\Visual Studio CS\Lab2\obj\Debug\Lab2.exe
+G:\Visual Studio CS\Lab2\obj\Debug\Lab2.pdb
+G:\Visual Studio CS\Lab2\obj\Debug\Lab2.csproj.AssemblyReference.cache
