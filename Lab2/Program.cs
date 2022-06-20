@@ -92,8 +92,11 @@ namespace Lab2
                                         int max = Convert.ToInt32(Console.ReadLine());
 
                                         Array1D a1d = new Array1D(n, min, max);
-                                        a1d.solve_task3();
+                                        Console.WriteLine("Generated array: ");
                                         a1d.print();
+                                        int[] paint = a1d.solve_task3();
+                                        Console.WriteLine("Solved array: ");
+                                        a1d.print(paint);
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)

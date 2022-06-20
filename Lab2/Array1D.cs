@@ -108,39 +108,104 @@ namespace Lab2
             return 0;
         }
 
-        public void solve_task3()
+        public int[] solve_task3()
         {
-            bool mnt;               //true = growing; false = declining
+            bool mnt = true;                    // true = growing, false = declining
+            int i = 0;
+            int first_start = -1;
+            int first_end = -1;
+            int last_start = -1;
+            int last_end = -1;
+            bool[] nono_zone = new bool[array.Length];
+            nono_zone = Enumerable.Repeat(false, nono_zone.Length).ToArray();
 
-            int k = 0;
-            while (array[k] == array[k + 1] && k < array.Length) k++;
-            if (array[k] > array[k + 1]) mnt = false;
-            else mnt = true;
-            Console.WriteLine(k);
-            Console.WriteLine(mnt);
+            try
+            {
+                //Finding the 1st mnt zone
+                while (array[i] == array[i + 1] && i < array.Length - 1) i++;
+                if (i < array.Length - 1 && array[i] > array[i + 1]) mnt = false;
+                first_start = i;
+                if (mnt) while (i < array.Length - 1 && array[i] < array[i + 1]) i++;
+                else while (i < array.Length - 1 && array[i] > array[i + 1]) i++;
+                first_end = i;
 
+                //Finding the 2nd mnt zone
+                i = array.Length - 1;
+                while (array[i] == array[i - 1] && i > 0) i--;
+                if (i > 0 && array[i] > array[i - 1]) mnt = true;
+                else mnt = false;
+                last_end = i;
+                if (mnt) while (i > 0 && array[i] > array[i - 1]) i--;
+                else while (i > 0 && array[i] < array[i - 1]) i--;
+                last_start = i;
+
+            }
+            catch (Exception ex) {}
 
             int ext_count = 0;
-            for (int i = k + 1; i < array.Length; i++)
+            i = 0;
+            while (i < array.Length - 1 && array[i] == array[i + 1]) i++;
+            if (i != array.Length - 1)
             {
-                if (array[i] > array[i - 1] && !mnt)
+                if (array[i] > array[i + 1]) mnt = false;
+                else mnt = true;
+
+                for (i = 0; i < array.Length - 1; i++)
                 {
-                    mnt = !mnt;
-                    ext_count++;
-                    Console.WriteLine("ext: " + i);
-                }
-                if (array[i] < array[i-1] && mnt)
-                {
-                    mnt = !mnt;
-                    ext_count++;
-                    Console.WriteLine("ext: " + i);
+                    if (array[i] == array[i + 1]) continue;
+                    if (array[i] > array[i + 1] && mnt)
+                    {
+                        ext_count++;
+                        mnt = !mnt;
+                    }
+                    if (array[i] < array[i + 1] && !mnt)
+                    {
+                        ext_count++;
+                        mnt = !mnt;
+                    }
                 }
             }
+            else ext_count = -1;
 
-            Console.WriteLine(ext_count);
+            List<int> paint = new List<int>();
 
+            Console.WriteLine("Mnt count: " + (ext_count + 1));
             int[] temp = new int[array.Length];
-            int temp_i = 0;
+            temp = Enumerable.Repeat(Int32.MinValue, temp.Length).ToArray();
+            if (first_start != -1 && first_end != -1 && last_start != -1 && last_end != -1 && first_start != last_start && first_end != last_end)
+            {
+                int i1 = 0;
+                for (i = first_start; i <= (last_end - last_start + first_start); i++)
+                {
+                    temp[i] = array[last_start + i1];
+                    array[last_start + i1] = Int32.MinValue;
+                    i1++;
+                    paint.Add(i);
+                }
+
+                i1 = 0;
+                for (i = last_end; i1 < (first_end - first_start + 1); i--)
+                {
+                    temp[i] = array[first_end - i1];
+                    array[first_end - i1] = Int32.MinValue;
+                    i1++;
+                    paint.Add(i);
+                }
+
+                i1 = 0;
+                while (temp[i1] != Int32.MinValue) i1++;
+                for (i = 0; i < array.Length; i++)
+                {
+                    if (array[i] != Int32.MinValue)
+                    {
+                        temp[i1] = array[i];
+                        i1++;
+                    }
+                }
+            }
+            else temp = array;
+            array = temp;
+            return paint.ToArray();
         }
 
         public void solve_task4()
@@ -320,9 +385,17 @@ namespace Lab2
             return array;
         }
 
-        public void print()
+        public void print(int[] els = null)
         {
-            Console.WriteLine(String.Join(" ", array));
+            els = els ?? new int[0];
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (els.Contains(i)) Console.ForegroundColor = ConsoleColor.Red;
+                else Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write(String.Format("{0, -3 }", array[i]));
+            }
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Gray;
         }
     }
 }
