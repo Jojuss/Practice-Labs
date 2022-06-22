@@ -11,15 +11,15 @@ namespace Lab2
         static void Main(string[] args)
         {
             int i = 0;
-            Console.SetWindowSize(60, 60);
+            Console.SetWindowSize(60, 50);
             Menu menu = new Menu(8);
             while (true)
             {
                 Console.Clear();
                 menu.print(i);
                 ConsoleKeyInfo d = Console.ReadKey();
-                if (d.KeyChar == 'w') if (i - 1 < 0) i = 8; else i--;
-                if (d.KeyChar == 's') if (i + 1 > 8) i = 0; else i++;
+                if (d.KeyChar == 'w' || d.KeyChar == 'ц') if (i - 1 < 0) i = 8; else i--;
+                if (d.KeyChar == 's' || d.KeyChar == 'ы') if (i + 1 > 8) i = 0; else i++;
                 if (d.Key == ConsoleKey.Enter) 
                 {
                     Console.Clear();
@@ -94,9 +94,9 @@ namespace Lab2
                                         Array1D a1d = new Array1D(n, min, max);
                                         Console.WriteLine("Generated array: ");
                                         a1d.print();
-                                        int[] paint = a1d.solve_task3();
+                                        a1d.solve_task3();
                                         Console.WriteLine("Solved array: ");
-                                        a1d.print(paint);
+                                        a1d.print();
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -156,7 +156,6 @@ namespace Lab2
                                         a1d.print();
                                         a1d.solve_task5();
                                         Console.WriteLine("\nChanged array: ");
-                                        a1d.print();
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -184,9 +183,8 @@ namespace Lab2
                                         Array1D a1d = new Array1D(n, min, max);
                                         Console.WriteLine("\nGenerated array: ");
                                         a1d.print();
-                                        a1d.solve_task6();
                                         Console.WriteLine("\nChanged array: ");
-                                        a1d.print();
+                                        a1d.solve_task6();
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -214,9 +212,8 @@ namespace Lab2
                                         Array1D a1d = new Array1D(n, min, max);
                                         Console.WriteLine("\nGenerated array: ");
                                         a1d.print();
-                                        a1d.solve_task7();
                                         Console.WriteLine("\nChanged array: ");
-                                        a1d.print();
+                                        a1d.solve_task7();
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)

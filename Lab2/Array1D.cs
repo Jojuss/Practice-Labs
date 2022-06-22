@@ -88,7 +88,7 @@ namespace Lab2
             max_nums_2[2] = cur;
             max_case2 *= cur;
 
-            if (has_zero) 
+            if (has_zero)
             {
                 if (max_case1 > max_case2) return max_nums_1;
                 else return max_nums_2;
@@ -108,7 +108,7 @@ namespace Lab2
             return 0;
         }
 
-        public int[] solve_task3()
+        public void solve_task3()
         {
             bool mnt = true;                    // true = growing, false = declining
             int i = 0;
@@ -116,8 +116,6 @@ namespace Lab2
             int first_end = -1;
             int last_start = -1;
             int last_end = -1;
-            bool[] nono_zone = new bool[array.Length];
-            nono_zone = Enumerable.Repeat(false, nono_zone.Length).ToArray();
 
             try
             {
@@ -138,11 +136,23 @@ namespace Lab2
                 if (mnt) while (i > 0 && array[i] > array[i - 1]) i--;
                 else while (i > 0 && array[i] < array[i - 1]) i--;
                 last_start = i;
-
             }
             catch (Exception ex) {}
 
-            int ext_count = 0;
+            List<int> firstext = new List<int>();
+            List<int> lastext = new List<int>();
+            for (i = first_start; i <= first_end; i++)
+            {
+                firstext.Add(array[i]);
+                array[i] = Int32.MinValue;
+            }
+            for (i = last_start; i <= last_end; i++)
+            {
+                lastext.Add(array[i]);
+                array[i] = Int32.MinValue;
+            }
+
+            int ext_count = 0; 
             i = 0;
             while (i < array.Length - 1 && array[i] == array[i + 1]) i++;
             if (i != array.Length - 1)
@@ -166,46 +176,60 @@ namespace Lab2
                 }
             }
             else ext_count = -1;
+            Console.Write("Mnt count: " + (ext_count + 1));
 
-            List<int> paint = new List<int>();
-
-            Console.WriteLine("Mnt count: " + (ext_count + 1));
-            int[] temp = new int[array.Length];
-            temp = Enumerable.Repeat(Int32.MinValue, temp.Length).ToArray();
-            if (first_start != -1 && first_end != -1 && last_start != -1 && last_end != -1 && first_start != last_start && first_end != last_end)
+            int offset = (last_end - last_start + 1) - (first_end - first_start + 1);
+            if (offset != 0 && first_start != -1 && first_end != -1 && last_start != -1 && last_end != -1)
             {
-                int i1 = 0;
-                for (i = first_start; i <= (last_end - last_start + first_start); i++)
+                if (offset > 0)
                 {
-                    temp[i] = array[last_start + i1];
-                    array[last_start + i1] = Int32.MinValue;
-                    i1++;
-                    paint.Add(i);
-                }
-
-                i1 = 0;
-                for (i = last_end; i1 < (first_end - first_start + 1); i--)
-                {
-                    temp[i] = array[first_end - i1];
-                    array[first_end - i1] = Int32.MinValue;
-                    i1++;
-                    paint.Add(i);
-                }
-
-                i1 = 0;
-                while (temp[i1] != Int32.MinValue) i1++;
-                for (i = 0; i < array.Length; i++)
-                {
-                    if (array[i] != Int32.MinValue)
+                    i = array.Length - 1;
+                    while (array[i] != Int32.MinValue) i--;
+                    while (array[i] == Int32.MinValue) i--;
+                    while (array[i] != Int32.MinValue)
                     {
-                        temp[i1] = array[i];
-                        i1++;
+                        array[i + 1] = array[i];
+                        array[i] = Int32.MinValue;
+                        i--;
                     }
                 }
+                if (offset < 0)
+                {
+                    i = 0;
+                    while (array[i] != Int32.MinValue) i++;
+                    while (array[i] == Int32.MinValue) i++;
+                    while (array[i] != Int32.MinValue)
+                    {
+                        array[i - 1] = array[i];
+                        array[i] = Int32.MinValue;
+                        i++;
+                    }
+                }
+                i = 0;
+                while (array[i] != Int32.MinValue) i++;
+                for (int j = 0; j < lastext.Count; j++)
+                {
+                    array[i] = lastext[j];
+                    i++;
+                }
+                i = array.Length - 1;
+                while (array[i] != Int32.MinValue) i--;
+                for (int j = 0; j < firstext.Count; j++)
+                {
+                    array[i] = firstext[firstext.Count - j - 1];
+                    i--;
+                }
             }
-            else temp = array;
-            array = temp;
-            return paint.ToArray();
+            else
+            {
+                for (i = 0; i < firstext.Count; i++)
+                {
+                    array[first_start] = lastext[i];
+                    array[last_start] = firstext[i];
+                    first_start++;
+                    last_start++;
+                }
+            }
         }
 
         public void solve_task4()
@@ -256,133 +280,108 @@ namespace Lab2
             }
         }
 
-        public int[] solve_task5()
+        public void solve_task5()
         {
             double average = 0;
             int sum = 0;
-            for (int i = 0; i < array.Length; i++) sum += array[i];
+            List<int> alist = new List<int>();
+            for (int i = 0; i < array.Length; i++) 
+            {
+                sum += array[i];
+                alist.Add(array[i]);
+            }
             average = (double)sum / (double)array.Length;
             Console.WriteLine("Average: " + average);
 
-            int new_length = array.Length;
-            HashSet<int> indices = new HashSet<int>();
-            for (int i = 0; i < array.Length; i++) if (Math.Abs(array[i]) > average)
-                {
-                    new_length++;
-                    indices.Add(i);
-                }
-
-            int offset = 0;
-            int[] temp = new int[new_length];
-            foreach (var item in indices)
+            int[] array2 = new int[array.Length * 2];
+            int j = 0;
+            int new_len = array.Length;
+            for (int i = 0; i < array.Length; i++)
             {
-                temp[item + offset + 1] = -1;
-                offset++;
-            }
-
-            int true_j = 0;
-            for (int i = 0; i < temp.Length; i++)
-            {
-                if (temp[i] == 0)
+                if (Math.Abs(array[i]) > average)
                 {
-                    temp[i] = array[true_j];
-                    true_j++;
+                    array2[j] = array[i];
+                    array2[j + 1] = 0;
+                    new_len++;
+                    j++;
                 }
-                else temp[i] = 0;
+                else array2[j] = array[i];
+                j++;
             }
-
-            array = temp;
-            return array;
+            for (int i = 0; i < new_len; i++) Console.Write("" + array2[i] + " ");
         }
 
-        public int[] solve_task6()
+        public void solve_task6()
         {
             int maxpos = 0;
-            for (int i = 0; i < array.Length; i++) if (array[i] > maxpos) maxpos = array[i];
+            List<int> alist = new List<int>();
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] > maxpos) maxpos = array[i];
+                alist.Add(array[i]);
+            }
             Console.WriteLine("Max positive: " + maxpos);
 
-            int new_length = array.Length;
-            HashSet<int> indices = new HashSet<int>();
-            for (int i = 0; i < array.Length; i++) if (array[i] % 2 == -1)
-                {
-                    new_length++;
-                    indices.Add(i);
-                }
-
-            int offset = 0;
-            int[] temp = new int[new_length];
-            foreach (var item in indices)
-            {
-                temp[item + offset + 1] = -1;
-                offset++;
-            }
-
-            int true_j = 0;
-            for (int i = 0; i < temp.Length; i++)
-            {
-                if (temp[i] == 0)
-                {
-                    temp[i] = array[true_j];
-                    true_j++;
-                }
-                else temp[i] = maxpos;
-            }
-
-            array = temp;
-            return array;
-        }
-
-        public int[] solve_task7()
-        {
-            int new_length = array.Length;
-            HashSet<int> indices = new HashSet<int>();
-            for (int i = 0; i < array.Length - 1; i++)
-                if (array[i] % array[array.Length - 1] != 0)
-                {
-                    indices.Add(i);
-                    new_length--;
-                }
-
-            int[] temp = new int[new_length];
-            int temp_i = 0;
+            int[] array2 = new int[array.Length * 2];
+            int j = 0;
+            int new_len = array.Length;
             for (int i = 0; i < array.Length; i++)
             {
-                if (!indices.Contains(i))
+                if (array[i] % 2 == -1 )
                 {
-                    temp[temp_i] = array[i];
-                    temp_i++;
+                    array2[j] = array[i];
+                    array2[j + 1] = maxpos;
+                    new_len++;
+                    j++;
                 }
+                else array2[j] = array[i];
+                j++;
             }
-            
-            array = temp;
-            return array;
+            for (int i = 0; i < new_len; i++) Console.Write("" + array2[i] + " ");
         }
 
-        public int[] solve_task8()
+        public void solve_task7()
         {
-            int new_length = array.Length;
-            int sum = Math.Abs(array[0]) + Math.Abs(array[array.Length - 1]);
-            HashSet<int> indices = new HashSet<int>();
-            for (int i = 0; i < array.Length - 1; i++)
-                if ((array[i] != 0 && sum % array[i] == 0) || array[i] == 0)
-                {
-                    indices.Add(i);
-                    new_length--;
-                }
+            if (array[array.Length - 1] == 0)
+            {
+                Console.WriteLine("Last element is 0.");
+                return;
+            }
 
-            int[] temp = new int[new_length];
-            int temp_i = 0;
+            int last = array[array.Length - 1];
+            int new_len = array.Length;
+
+            int k = array.Length - 2;
+            int[] array2 = array;
             for (int i = 0; i < array.Length; i++)
             {
-                if (!indices.Contains(i))
+                if (array2[i] % last != 0)
                 {
-                    temp[temp_i] = array[i];
-                    temp_i++;
+                    while (k > i)
+                    {
+                        array[k + 1] = array[k];
+                        k--;
+                    }
+                    new_len--;
                 }
             }
 
-            array = temp;
-            return array;
+            for (int i = 0; i < new_len; i++)
+            {
+                Console.Write("" + array[i] + " ");
+            }
+        }
+
+        public void solve_task8()
+        {
+            int sum = array[array.Length - 1] + array[0];
+            List<int> alist = new List<int>();
+
+            for (int i = 0; i < array.Length; i++) alist.Add(array[i]);
+            for (int i = 0; i < array.Length; i++) if (array[i] != 0 && sum % array[i] == 0) alist.Remove(array[i]);
+
+            array = new int[alist.Count];
+            for (int i = 0; i < alist.Count; i++) array[i] = alist[i];
         }
 
         public void print(int[] els = null)
@@ -392,7 +391,7 @@ namespace Lab2
             {
                 if (els.Contains(i)) Console.ForegroundColor = ConsoleColor.Red;
                 else Console.ForegroundColor = ConsoleColor.Gray;
-                Console.Write(String.Format("{0, -3 }", array[i]));
+                Console.Write(String.Format("{0, -4 }", array[i]));
             }
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Gray;
