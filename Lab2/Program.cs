@@ -241,9 +241,8 @@ namespace Lab2
                                         Array1D a1d = new Array1D(n, min, max);
                                         Console.WriteLine("\nGenerated array: ");
                                         a1d.print();
-                                        a1d.solve_task8();
                                         Console.WriteLine("\nChanged array: ");
-                                        a1d.print();
+                                        a1d.solve_task8();
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)

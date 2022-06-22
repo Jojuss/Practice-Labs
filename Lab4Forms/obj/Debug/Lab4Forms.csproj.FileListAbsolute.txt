@@ -8,3 +8,13 @@ G:\Visual Studio CS\Lab4Forms\obj\Debug\Lab4Forms.csproj.GenerateResource.cache
 G:\Visual Studio CS\Lab4Forms\obj\Debug\Lab4Forms.csproj.CoreCompileInputs.cache
 G:\Visual Studio CS\Lab4Forms\obj\Debug\Lab4Forms.exe
 G:\Visual Studio CS\Lab4Forms\obj\Debug\Lab4Forms.pdb
+C:\Users\user\Desktop\Practice Labs\Lab4Forms\bin\Debug\Lab4Forms.exe.config
+C:\Users\user\Desktop\Practice Labs\Lab4Forms\bin\Debug\Lab4Forms.exe
+C:\Users\user\Desktop\Practice Labs\Lab4Forms\bin\Debug\Lab4Forms.pdb
+C:\Users\user\Desktop\Practice Labs\Lab4Forms\obj\Debug\Lab4Forms.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\Practice Labs\Lab4Forms\obj\Debug\Lab4Forms.Form1.resources
+C:\Users\user\Desktop\Practice Labs\Lab4Forms\obj\Debug\Lab4Forms.Properties.Resources.resources
+C:\Users\user\Desktop\Practice Labs\Lab4Forms\obj\Debug\Lab4Forms.csproj.GenerateResource.cache
+C:\Users\user\Desktop\Practice Labs\Lab4Forms\obj\Debug\Lab4Forms.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Practice Labs\Lab4Forms\obj\Debug\Lab4Forms.exe
+C:\Users\user\Desktop\Practice Labs\Lab4Forms\obj\Debug\Lab4Forms.pdb

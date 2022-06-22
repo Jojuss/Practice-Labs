@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,9 +28,10 @@ namespace Lab4Forms
         {
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
+                using (StreamReader sr = new StreamReader(openFileDialog1.FileName, Encoding.GetEncoding("utf-8")))
                 {
                     string s = sr.ReadLine();
+                    Debug.WriteLine(s);
                     int balance = 0;
                     Queue<int> opBrckts = new Queue<int>();
                     for (int i = 0; i < s.Length; i++)
@@ -78,10 +78,10 @@ namespace Lab4Forms
                                                     'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я',};
                     while ((s = sr.ReadLine()) != null)
                     {
+                        Debug.WriteLine(s);
                         for (int i = 0; i < s.Length; i++)
                         {
-                            if (cyrillic.Contains(s[i])) text += latin[(Array.FindIndex(cyrillic, item => item == s[i]) + (cyrillic.Length / 2)) % cyrillic.Length];
-                            else text += s[i];
+                            text += latin[(Array.FindIndex(cyrillic, item => item == s[i]) + (cyrillic.Length / 2)) % cyrillic.Length];
                         }
                         text += Environment.NewLine;
                     }
@@ -212,19 +212,31 @@ namespace Lab4Forms
                     {
                         foreach (var item in vowel_string_set)
                         {
-                            List<KeyValuePair<char, int>> dict_list = item.ToList();
+                            List<char> keys = new List<char>(item.Keys);
+                            List<int> values = new List<int>(item.Values);
 
-                            dict_list.Sort(
-                                delegate (KeyValuePair<char, int> pair1,
-                                KeyValuePair<char, int> pair2)
-                                {
-                                    return pair1.Value.CompareTo(pair2.Value);
-                                }
-                            );
-
-                            foreach (KeyValuePair<char, int> entry in dict_list)
+                            int temp = 0;
+                            char temp_char;
+                            for (int i = 0; i < values.Count; i++)
                             {
-                                sw.Write(entry.Key + " = " + entry.Value + " ");
+                                for (int j = 0; j < values.Count - 1; j++)
+                                {
+                                    if (values[j] > values[j + 1])
+                                    {
+                                        temp = values[j + 1];
+                                        values[j + 1] = values[j];
+                                        values[j] = temp;
+
+                                        temp_char = keys[j + 1];
+                                        keys[j + 1] = keys[j];
+                                        keys[j] = temp_char;
+                                    }
+                                }
+                            }
+
+                            for (int i = 0; i < keys.Count; i++)
+                            {
+                                sw.Write("" + keys[i] + " = " + values[i] + " ");
                             }
                             sw.Write(Environment.NewLine);
                         }

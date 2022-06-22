@@ -42,9 +42,9 @@ namespace Lab3
                                         Array2D a2d = new Array2D(n, m, min, max);
                                         Console.WriteLine("Generated array: ");
                                         a2d.print();
-                                        int[] cols = a2d.solve_106();
+                                        a2d.solve_106();
                                         Console.WriteLine("Solved array:");
-                                        a2d.print(null, cols);
+                                        a2d.print();
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -72,9 +72,9 @@ namespace Lab3
                                         Array2D a2d = new Array2D(n, m, min, max);
                                         Console.WriteLine("Generated array: ");
                                         a2d.print();
-                                        int[] print_values = a2d.solve_110();
+                                        a2d.solve_110();
                                         Console.WriteLine("Solved array:");
-                                        a2d.print(new int[] { print_values[0] }, new int[] { print_values[1] });
+                                        a2d.print();
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -103,9 +103,8 @@ namespace Lab3
                                         Array2D a2d = new Array2D(n, m, min, max);
                                         Console.WriteLine("Generated array: ");
                                         a2d.print();
-                                        int[] rows = a2d.solve_206();
                                         Console.WriteLine("Solved array:");
-                                        a2d.print(rows);
+                                        a2d.solve_206();
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -134,9 +133,8 @@ namespace Lab3
                                         Array2D a2d = new Array2D(n, m, min, max);
                                         Console.WriteLine("Generated array: ");
                                         a2d.print();
-                                        int[] rows = a2d.solve_210();
                                         Console.WriteLine("Solved array:");
-                                        a2d.print(rows);
+                                        a2d.solve_210();
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)

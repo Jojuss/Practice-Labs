@@ -284,11 +284,9 @@ namespace Lab2
         {
             double average = 0;
             int sum = 0;
-            List<int> alist = new List<int>();
             for (int i = 0; i < array.Length; i++) 
             {
                 sum += array[i];
-                alist.Add(array[i]);
             }
             average = (double)sum / (double)array.Length;
             Console.WriteLine("Average: " + average);
@@ -314,11 +312,9 @@ namespace Lab2
         public void solve_task6()
         {
             int maxpos = 0;
-            List<int> alist = new List<int>();
             for (int i = 0; i < array.Length; i++)
             {
                 if (array[i] > maxpos) maxpos = array[i];
-                alist.Add(array[i]);
             }
             Console.WriteLine("Max positive: " + maxpos);
 
@@ -355,14 +351,14 @@ namespace Lab2
             int[] array2 = array;
             for (int i = 0; i < array.Length; i++)
             {
-                if (array2[i] % last != 0)
+                if (array[i] % last != 0)
                 {
-                    while (k > i)
+                    for (int j = i; j < array.Length - 1; j++)
                     {
-                        array[k + 1] = array[k];
-                        k--;
+                        array[j] = array[j + 1];
                     }
                     new_len--;
+                    i--;
                 }
             }
 
@@ -374,14 +370,35 @@ namespace Lab2
 
         public void solve_task8()
         {
-            int sum = array[array.Length - 1] + array[0];
-            List<int> alist = new List<int>();
+            if (array[0] + array[array.Length - 1] == 0)
+            {
+                Console.WriteLine("Sum is 0.");
+                Console.Write(String.Join(" ", array));
+                return;
+            }
 
-            for (int i = 0; i < array.Length; i++) alist.Add(array[i]);
-            for (int i = 0; i < array.Length; i++) if (array[i] != 0 && sum % array[i] == 0) alist.Remove(array[i]);
+            int sum = array[0] + array[array.Length - 1];
+            int new_len = array.Length;
 
-            array = new int[alist.Count];
-            for (int i = 0; i < alist.Count; i++) array[i] = alist[i];
+            int k = array.Length - 2;
+            int[] array2 = array;
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (array[i] != 0 && sum % array[i] == 0)
+                {
+                    for (int j = i; j < array.Length - 1; j++)
+                    {
+                        array[j] = array[j + 1];
+                    }
+                    new_len--;
+                    i--;
+                }
+            }
+
+            for (int i = 0; i < new_len; i++)
+            {
+                Console.Write("" + array[i] + " ");
+            }
         }
 
         public void print(int[] els = null)
@@ -391,7 +408,7 @@ namespace Lab2
             {
                 if (els.Contains(i)) Console.ForegroundColor = ConsoleColor.Red;
                 else Console.ForegroundColor = ConsoleColor.Gray;
-                Console.Write(String.Format("{0, -4 }", array[i]));
+                Console.Write(String.Format("{0, -4}", array[i]));
             }
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Gray;
