@@ -191,79 +191,67 @@ namespace Lab3
 
         public void solve_306()
         {
-            int[] array1d = new int[array.Length * array[0].Length];
-            int k = 0;
-            for (int i = 0; i < array.Length; i++)
+            int i = 0;
+            int size = array.Length * array[1].Length;
+            while (i < size)
             {
-                for (int j = 0; j < array[0].Length; j++)
+                int cur_row = i / array.Length;
+                int cur_col = i % array.Length;
+                int max = array[cur_row][cur_col];
+                int max_i = -1;
+                int max_j = -1;
+                for (int j = cur_row; j < array.Length; j++)
                 {
-                    array1d[k] = array[i][j];
-                    k++;
-                }
-            }
-
-            //Bubble sorting
-            int temp = 0;
-            for (int write = 0; write < array1d.Length; write++)
-            {
-                for (int sort = 0; sort < array1d.Length - 1; sort++)
-                {
-                    if (array1d[sort] > array1d[sort + 1])
+                    for (int k = cur_col; k < array[j].Length; k++)
                     {
-                        temp = array1d[sort + 1];
-                        array1d[sort + 1] = array1d[sort];
-                        array1d[sort] = temp;
+                        if (array[j][k] > max)
+                        {
+                            max = array[j][k];
+                            max_i = j;
+                            max_j = k;
+                        }
                     }
                 }
-            }
-
-            k = 0;
-            for (int i = array.Length - 1; i >= 0; i--)
-            {
-                for (int j = array[0].Length - 1; j >= 0; j--)
+                if (max_i != -1)
                 {
-                    array[i][j] = array1d[k];
-                    k++;
+                    int temp = array[cur_row][cur_col];
+                    array[cur_row][cur_col] = array[max_i][max_j];
+                    array[max_i][max_j] = temp;
                 }
+                i++;
             }
         }
 
         public void solve_310()
         {
-            int[] array1d = new int[array.Length * array[0].Length];
-            int k = 0;
-            for (int i = 0; i < array.Length; i++)
+            int i = 0;
+            int size = array.Length * array[1].Length;
+            while (i < size)
             {
-                for (int j = 0; j < array[0].Length; j++)
+                int cur_row = i / array.Length;
+                int cur_col = i % array.Length;
+                int min = array[cur_row][cur_col];
+                int min_i = -1;
+                int min_j = -1;
+                for (int j = cur_row; j < array.Length; j++)
                 {
-                    array1d[k] = array[i][j];
-                    k++;
-                }
-            }
-
-            //Bubble sorting
-            int temp = 0;
-            for (int write = 0; write < array1d.Length; write++)
-            {
-                for (int sort = 0; sort < array1d.Length - 1; sort++)
-                {
-                    if (array1d[sort] > array1d[sort + 1])
+                    for (int k = cur_col; k < array[j].Length; k++)
                     {
-                        temp = array1d[sort + 1];
-                        array1d[sort + 1] = array1d[sort];
-                        array1d[sort] = temp;
+                        if (array[j][k] < min)
+                        {
+                            min = array[j][k];
+                            min_i = j;
+                            min_j = k;
+                        }
                     }
                 }
-            }
-
-            k = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                for (int j = 0; j < array[0].Length; j++)
+                if (min_i != -1)
                 {
-                    array[i][j] = array1d[k];
-                    k++;
+                    int temp = array[cur_row][cur_col];
+                    array[cur_row][cur_col] = array[min_i][min_j];
+                    array[min_i][min_j] = temp;
                 }
+                i++;
             }
         }
 
