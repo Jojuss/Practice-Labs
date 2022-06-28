@@ -1,0 +1,10 @@
+G:\Visual Studio CS\Game\bin\Debug\Game.exe.config
+G:\Visual Studio CS\Game\bin\Debug\Game.exe
+G:\Visual Studio CS\Game\bin\Debug\Game.pdb
+G:\Visual Studio CS\Game\obj\Debug\Game.csproj.AssemblyReference.cache
+G:\Visual Studio CS\Game\obj\Debug\Game.Form1.resources
+G:\Visual Studio CS\Game\obj\Debug\Game.Properties.Resources.resources
+G:\Visual Studio CS\Game\obj\Debug\Game.csproj.GenerateResource.cache
+G:\Visual Studio CS\Game\obj\Debug\Game.csproj.CoreCompileInputs.cache
+G:\Visual Studio CS\Game\obj\Debug\Game.exe
+G:\Visual Studio CS\Game\obj\Debug\Game.pdb
