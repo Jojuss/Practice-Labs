@@ -11,7 +11,7 @@ namespace Lab3
         static void Main(string[] args)
         {
             int i = 0;
-            Console.SetWindowSize(60, 60);
+            Console.SetWindowSize(50, 50);
             Menu menu = new Menu(6);
             while (true)
             {
@@ -41,10 +41,10 @@ namespace Lab3
 
                                         Array2D a2d = new Array2D(n, m, min, max);
                                         Console.WriteLine("Generated array: ");
-                                        a2d.print();
+                                        a2d.print(a2d.n);
                                         a2d.solve_106();
                                         Console.WriteLine("Solved array:");
-                                        a2d.print();
+                                        a2d.print(a2d.n);
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -71,10 +71,10 @@ namespace Lab3
 
                                         Array2D a2d = new Array2D(n, m, min, max);
                                         Console.WriteLine("Generated array: ");
-                                        a2d.print();
+                                        a2d.print(a2d.n);
                                         a2d.solve_110();
                                         Console.WriteLine("Solved array:");
-                                        a2d.print();
+                                        a2d.print(a2d.n);
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -100,9 +100,9 @@ namespace Lab3
                                         int min = Convert.ToInt32(Console.ReadLine());
                                         int max = Convert.ToInt32(Console.ReadLine());
 
-                                        Array2D a2d = new Array2D(n, m, min, max);
+                                        Array2D a2d = new Array2D(n * 2, m, min, max);
                                         Console.WriteLine("Generated array: ");
-                                        a2d.print();
+                                        a2d.print(a2d.n / 2);
                                         Console.WriteLine("Solved array:");
                                         a2d.solve_206();
                                         anyExceptions = false;
@@ -130,9 +130,9 @@ namespace Lab3
                                         int min = Convert.ToInt32(Console.ReadLine());
                                         int max = Convert.ToInt32(Console.ReadLine());
 
-                                        Array2D a2d = new Array2D(n, m, min, max);
+                                        Array2D a2d = new Array2D(n * 2, m, min, max);
                                         Console.WriteLine("Generated array: ");
-                                        a2d.print();
+                                        a2d.print(a2d.n / 2);
                                         Console.WriteLine("Solved array:");
                                         a2d.solve_210();
                                         anyExceptions = false;
@@ -162,10 +162,10 @@ namespace Lab3
 
                                         Array2D a2d = new Array2D(n, m, min, max);
                                         Console.WriteLine("Generated array: ");
-                                        a2d.print();
+                                        a2d.print(a2d.n);
                                         a2d.solve_306();
                                         Console.WriteLine("Solved array:");
-                                        a2d.print();
+                                        a2d.print(a2d.n);
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -193,10 +193,10 @@ namespace Lab3
 
                                         Array2D a2d = new Array2D(n, m, min, max);
                                         Console.WriteLine("Generated array: ");
-                                        a2d.print();
+                                        a2d.print(a2d.n);
                                         a2d.solve_310();
                                         Console.WriteLine("Solved array:");
-                                        a2d.print();
+                                        a2d.print(a2d.n);
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)

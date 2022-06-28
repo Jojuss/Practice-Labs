@@ -19,3 +19,10 @@ C:\Users\user\Desktop\Practice Labs\Lab2\obj\Debug\Lab2.csproj.AssemblyReference
 C:\Users\user\Desktop\Practice Labs\Lab2\obj\Debug\Lab2.csproj.CoreCompileInputs.cache
 C:\Users\user\Desktop\Practice Labs\Lab2\obj\Debug\Lab2.exe
 C:\Users\user\Desktop\Practice Labs\Lab2\obj\Debug\Lab2.pdb
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab2\bin\Debug\Lab2.exe.config
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab2\bin\Debug\Lab2.exe
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab2\bin\Debug\Lab2.pdb
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab2\obj\Debug\Lab2.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab2\obj\Debug\Lab2.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab2\obj\Debug\Lab2.exe
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab2\obj\Debug\Lab2.pdb

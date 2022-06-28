@@ -9,10 +9,11 @@ namespace Lab3
     class Array2D
     {
         protected int[][] array;
-        
+        public int n;
         public Array2D(int n, int m, int min, int max)
         {
             this.array = new int[n][];
+            this.n = n;
             Random rand = new Random();
             for (int i = 0; i < n; i++)
             {
@@ -59,14 +60,21 @@ namespace Lab3
 
         public void solve_110()
         {
-            int fh = 0, sh = 0, boundary = array.Length / 2 + array.Length % 2;
-            for (int i = 0; i < array.Length; i++)
+            int fh = 0, sh = 0;
+            int c = array.Length / 2 + array.Length % 2;
+            for (int i = 0; i < array[0].Length / 2; i++)
             {
-                for (int j = 0; j < array[i].Length; j++)
+                Console.WriteLine("c = " + c + " i = " + i);
+                for (int j = 0; j < array.Length; j++)
                 {
-                    if (i < boundary) fh += array[i][j];
-                    else sh += array[i][j];
+                    fh += array[j][i];
+                    sh += array[j][c];
                 }
+                c++;
+            }
+            if (array[0].Length % 2 != 0)
+            {
+                for (int i = 0; i < array.Length; i++) sh += array[i][array.Length / 2];
             }
 
             Console.WriteLine("First half: " + fh);
@@ -94,8 +102,9 @@ namespace Lab3
 
             int max = Int32.MinValue;
             int max_i = -1;
+            int new_len = array.Length / 2;
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < new_len; i++)
             {
                 for (int j = 0; j < array[i].Length; j++) if (array[i][j] > max)
                     {
@@ -105,41 +114,31 @@ namespace Lab3
             }
 
             Console.WriteLine("Max: " + max + " Sum: " + sum);
-            int[][] array2 = new int[array.Length * 2][];
-            int new_row_length = array.Length;
-            for (int i = 0; i < array2.Length; i++) array2[i] = new int[array[0].Length];
 
-            int k = 0;
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < new_len; i++)
             {
-                int j = 0;
-                while (j < array[i].Length) 
+
+                for (int j = 0; j < array[i].Length; j++)
                 {
-                    if (array[i][j] == 0)
+                    if (array[i][j] != 0 && sum % array[i][j] == 0)
                     {
-                        j++;
-                        continue;
+                        Console.WriteLine("Found at row " + i);
+                        for (int k = array.Length - 1; k > i; k--) array[k] = array[k - 1];
+                        if (i < max_i) max_i++;
+                        array[i + 1] = array[max_i];
+                        i++;
+                        new_len++;
+                        break;
                     }
-                    if (sum % array[i][j] == 0) break;
-                    j++;
                 }
-                if (j < array.Length)
-                {
-                    array2[k] = array[i];
-                    array2[k + 1] = array[max_i];
-                    k++;
-                    new_row_length++;
-                }
-                else array2[k] = array[i];
-                k++;
             }
 
-
-            for (int i = 0; i < new_row_length; i++)
+            Console.WriteLine("New len: " + new_len);
+            for (int i = 0; i < new_len; i++)
             {
-                for (int j = 0; j < array2[i].Length; j++)
+                for (int j = 0; j < array[i].Length; j++)
                 {
-                    Console.Write(String.Format("{0, 3} ", array2[i][j]));
+                    Console.Write(String.Format("{0, 3} ", array[i][j]));
                 }
                 Console.Write(Environment.NewLine + Environment.NewLine);
             }
@@ -148,42 +147,32 @@ namespace Lab3
         public void solve_210()
         {
             int sum = Math.Abs(array[0][0]) + Math.Abs(array[0][1]) + Math.Abs(array[array.Length - 1][array[0].Length - 1]);
+            int new_len = array.Length / 2;
 
             Console.WriteLine("Sum: " + sum);
-            int[][] array2 = new int[array.Length * 2][];
-            int new_row_length = array.Length;
-            for (int i = 0; i < array2.Length; i++) array2[i] = new int[array[0].Length];
 
-            int k = 0;
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < new_len; i++)
             {
-                int j = 0;
-                while (j < array[i].Length)
+
+                for (int j = 0; j < array[i].Length; j++)
                 {
-                    if (array[i][j] == 0)
+                    if (array[i][j] != 0 && sum % array[i][j] == 0)
                     {
-                        j++;
-                        continue;
+                        Console.WriteLine("Found at row " + i);
+                        for (int k = array.Length - 1; k > i; k--) array[k] = array[k - 1];
+                        for (int m = 0; m < array[i + 1].Length; m++) array[i + 1][m] = 0;
+                        i++;
+                        new_len++;
+                        break;
                     }
-                    if (sum % array[i][j] == 0) break;
-                    j++;
                 }
-                if (j < array.Length)
-                {
-                    array2[k] = array[i];
-                    for (int m = 0; m < array2[k + 1].Length; m++) array2[k + 1][m] = 0;
-                    k++;
-                    new_row_length++;
-                }
-                else array2[k] = array[i];
-                k++;
             }
 
-            for (int i = 0; i < new_row_length; i++)
+            for (int i = 0; i < new_len; i++)
             {
-                for (int j = 0; j < array2[i].Length; j++)
+                for (int j = 0; j < array[i].Length; j++)
                 {
-                    Console.Write(String.Format("{0, 3} ", array2[i][j]));
+                    Console.Write(String.Format("{0, 3} ", array[i][j]));
                 }
                 Console.Write(Environment.NewLine + Environment.NewLine);
             }
@@ -200,9 +189,13 @@ namespace Lab3
                 int max = array[cur_row][cur_col];
                 int max_i = -1;
                 int max_j = -1;
+
                 for (int j = cur_row; j < array.Length; j++)
                 {
-                    for (int k = cur_col; k < array[j].Length; k++)
+                    int k;
+                    if (j == cur_row) k = cur_col;
+                    else k = 0;
+                    for (; k < array[j].Length; k++)
                     {
                         if (array[j][k] > max)
                         {
@@ -235,7 +228,10 @@ namespace Lab3
                 int min_j = -1;
                 for (int j = cur_row; j < array.Length; j++)
                 {
-                    for (int k = cur_col; k < array[j].Length; k++)
+                    int k;
+                    if (j == cur_row) k = cur_col;
+                    else k = 0;
+                    for (; k < array[j].Length; k++)
                     {
                         if (array[j][k] < min)
                         {
@@ -255,19 +251,14 @@ namespace Lab3
             }
         }
 
-        public void print(int[] rows = null, int[] cols = null)
+        public void print(int rows)
         {
-            rows = rows ?? new int[0];
-            cols = cols ?? new int[0];
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < rows; i++)
             {
                 for (int j = 0; j < array[i].Length; j++)
                 {
-                    if (rows.Contains(i) || cols.Contains(j)) Console.ForegroundColor = ConsoleColor.Red;
-                    else Console.ForegroundColor = ConsoleColor.Gray;
                     Console.Write(string.Format("{0, 3} ", array[i][j]));
                 }
-                Console.ForegroundColor = ConsoleColor.Gray;
                 Console.Write(Environment.NewLine + Environment.NewLine);
             }
         }

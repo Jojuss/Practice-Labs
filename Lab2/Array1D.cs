@@ -9,10 +9,12 @@ namespace Lab2
     class Array1D
     {
         protected int[] array;
+        public int n;
 
         public Array1D(int n, int min, int max)
         {
             this.array = new int[n];
+            this.n = n;
             Random rand = new Random();
             for (int i = 0; i < n; i++) this.array[i] = rand.Next(min, max + 1);
         }
@@ -282,58 +284,67 @@ namespace Lab2
 
         public void solve_task5()
         {
-            double average = 0;
+            double average = -1;
             int sum = 0;
-            for (int i = 0; i < array.Length; i++) 
+            int count = 0;
+            int new_len = array.Length / 2;
+            for (int i = 0; i < new_len; i++) 
             {
-                sum += array[i];
+                if (array[i] > 0)
+                {
+                    sum += array[i];
+                    count++;
+                }
             }
-            average = (double)sum / (double)array.Length;
-            Console.WriteLine("Average: " + average);
 
-            int[] array2 = new int[array.Length * 2];
-            int j = 0;
-            int new_len = array.Length;
-            for (int i = 0; i < array.Length; i++)
+            if (count != 0) average = (double)sum / (double)count;
+
+            for (int i = 0; i < new_len; i++)
             {
                 if (Math.Abs(array[i]) > average)
                 {
-                    array2[j] = array[i];
-                    array2[j + 1] = 0;
+                    for (int j = array.Length - 1; j > i; j--)
+                    {
+                        array[j] = array[j - 1];
+                    }
+                    array[i + 1] = 0;
+                    i++;
                     new_len++;
-                    j++;
                 }
-                else array2[j] = array[i];
-                j++;
             }
-            for (int i = 0; i < new_len; i++) Console.Write("" + array2[i] + " ");
+            Console.WriteLine("Average: " + average);
+            for (int i = 0; i < new_len; i++) Console.Write("" + array[i] + " ");
         }
 
         public void solve_task6()
         {
-            int maxpos = 0;
+            int new_len = array.Length / 2;
+            int maxpos = -1;
             for (int i = 0; i < array.Length; i++)
             {
                 if (array[i] > maxpos) maxpos = array[i];
             }
             Console.WriteLine("Max positive: " + maxpos);
-
-            int[] array2 = new int[array.Length * 2];
-            int j = 0;
-            int new_len = array.Length;
-            for (int i = 0; i < array.Length; i++)
+            if (maxpos == -1)
             {
-                if (array[i] % 2 == -1 )
-                {
-                    array2[j] = array[i];
-                    array2[j + 1] = maxpos;
-                    new_len++;
-                    j++;
-                }
-                else array2[j] = array[i];
-                j++;
+                Console.WriteLine("No positive numbers found.");
+                return;
             }
-            for (int i = 0; i < new_len; i++) Console.Write("" + array2[i] + " ");
+
+            for (int i = 0; i < new_len; i++)
+            {
+                if (array[i] % 2 == -1)
+                {
+                    for (int j = array.Length - 1; j > i; j--)
+                    {
+                        array[j] = array[j - 1];
+                    }
+                    array[i + 1] = maxpos;
+                    i++;
+                    new_len++;
+                }
+            }
+            for (int i = 0; i < new_len; i++) Console.Write("" + array[i] + " ");
         }
 
         public void solve_task7()
@@ -348,7 +359,6 @@ namespace Lab2
             int new_len = array.Length;
 
             int k = array.Length - 2;
-            int[] array2 = array;
             for (int i = 0; i < array.Length; i++)
             {
                 if (array[i] % last != 0)
@@ -381,7 +391,6 @@ namespace Lab2
             int new_len = array.Length;
 
             int k = array.Length - 2;
-            int[] array2 = array;
             for (int i = 0; i < array.Length; i++)
             {
                 if (array[i] != 0 && sum % array[i] == 0)
@@ -401,13 +410,10 @@ namespace Lab2
             }
         }
 
-        public void print(int[] els = null)
+        public void print(int len)
         {
-            els = els ?? new int[0];
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < len; i++)
             {
-                if (els.Contains(i)) Console.ForegroundColor = ConsoleColor.Red;
-                else Console.ForegroundColor = ConsoleColor.Gray;
                 Console.Write(String.Format("{0, -4}", array[i]));
             }
             Console.WriteLine();

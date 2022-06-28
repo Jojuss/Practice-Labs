@@ -32,34 +32,57 @@ namespace Lab4Forms
                 {
                     string s = sr.ReadLine();
                     Debug.WriteLine(s);
-                    int balance = 0;
+                    int balance_round = 0;
+                    int balance_square = 0;
                     Queue<int> opBrckts = new Queue<int>();
                     for (int i = 0; i < s.Length; i++)
                     {
-                        if (s[i] == '(') balance++;
-                        if (s[i] == ')') balance--;
-                        if (balance < 0)
+                        if (s[i] == '(') balance_round++;
+                        if (s[i] == '[') balance_square++;
+                        if (s[i] == ')') balance_round--;
+                        if (s[i] == ']') balance_square--;
+                        if (balance_round < 0 || balance_square < 0)
                         {
-                            label1.Text = "First inappropriate closing bracket at: " + i;
-                            break;
+                            label1.Text = "First inappropriate closing bracket at: " + i + '\n';
+                            return;
                         }
                     }
-                    if (balance > 0)
+                    if (balance_round > 0)
                     {
-                        string l = "-1\nMissing closing brackets for opening brackets at: ";
+                        string l = "-1\nMissing closing circle brackets for opening brackets at: ";
                         for (int i = s.Length - 1; i >= 0; i--)
                         {
                             if (s[i] == ')')
                             {
-                                int j = i-1;
-                                while (s[j] != '(') j--;
+                                int j = i - 1;
+                                while (s[j] != '(' || opBrckts.Contains(j)) j--;
                                 opBrckts.Enqueue(j);
                             }
                             if (s[i] == '(' && !opBrckts.Contains(i)) l += Convert.ToString(i) + " ";
                         }
                         label1.Text = l;
                     }
-                    if (balance == 0) label1.Text = "0";
+
+                    opBrckts.Clear();
+                    if (balance_square > 0)
+                    {
+                        string l;
+                        if (label1.Text.Contains("-1")) l = "\n";
+                        else l = "\n-1";
+                        l += "\nMissing closing square brackets for opening brackets at: ";
+                        for (int i = s.Length - 1; i >= 0; i--)
+                        {
+                            if (s[i] == ']')
+                            {
+                                int j = i - 1;
+                                while (s[j] != '[' || opBrckts.Contains(j)) j--;
+                                opBrckts.Enqueue(j);
+                            }
+                            if (s[i] == '[' && !opBrckts.Contains(i)) l += Convert.ToString(i) + " ";
+                        }
+                        label1.Text += l;
+                    }
+                    if (balance_round == 0 && balance_square == 0) label1.Text = "0";
                 }
             }
         }
@@ -69,19 +92,22 @@ namespace Lab4Forms
             string text = "";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                using (StreamReader sr = new StreamReader(openFileDialog1.FileName, Encoding.GetEncoding(1251)))
+                using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
                 {
                     string s;
-                    string[] latin = new string[] { "a", "b", "v", "g", "d", "e", "yo", "zh", "z", "i", "ii", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "f", "h", "c", "ch", "sh", "sh", "i", "y", "i", "a", "yu", "ya",
-                                                    "A", "B", "V", "G", "D", "E", "YO", "ZH", "Z", "I", "II", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "F", "H", "C", "CH", "SH", "SH", "I", "Y", "I", "A", "YU", "YA",};
-                    char[] cyrillic = new char[] {  'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я',
-                                                    'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я',};
+                    string[] latin = new string[] { "a", "b", "v", "g", "d", "e", "yo", "zh", "z", "i", "ii", "k", "l", "m", "n", "o", "p", "r", "s", "t", "u", "f", "h", "c", "ch", "sh", "sh", "i", "y", "i", "a", "yu", "ya", " ",
+                                                    "A", "B", "V", "G", "D", "E", "YO", "ZH", "Z", "I", "II", "K", "L", "M", "N", "O", "P", "R", "S", "T", "U", "F", "H", "C", "CH", "SH", "SH", "I", "Y", "I", "A", "YU", "YA", " "};
+                    char[] cyrillic = new char[] {  'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я', ' ',
+                                                    'А', 'Б', 'В', 'Г', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Ъ', 'Ы', 'Ь', 'Э', 'Ю', 'Я', ' '};
                     while ((s = sr.ReadLine()) != null)
                     {
                         Debug.WriteLine(s);
                         for (int i = 0; i < s.Length; i++)
                         {
-                            text += latin[(Array.FindIndex(cyrillic, item => item == s[i]) + (cyrillic.Length / 2)) % cyrillic.Length];
+                            bool flag = false;
+                            for (int j = 0; j < cyrillic.Length; j++) if (cyrillic[j] == s[i]) flag = true;
+                            if (flag) text += latin[(Array.FindIndex(cyrillic, item => item == s[i]) + (cyrillic.Length / 2)) % cyrillic.Length];
+                            else text += s[i];
                         }
                         text += Environment.NewLine;
                     }
@@ -137,7 +163,7 @@ namespace Lab4Forms
                 n = Convert.ToInt32(textBox1.Text);
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    using (StreamReader sr = new StreamReader(openFileDialog1.FileName, Encoding.GetEncoding(1251)))
+                    using (StreamReader sr = new StreamReader(openFileDialog1.FileName))
                     {
                         string[] text = new string[n];
                         int i = 0;
@@ -217,23 +243,46 @@ namespace Lab4Forms
 
                             int temp = 0;
                             char temp_char;
-                            for (int i = 0; i < values.Count; i++)
-                            {
-                                for (int j = 0; j < values.Count - 1; j++)
-                                {
-                                    if (values[j] > values[j + 1])
-                                    {
-                                        temp = values[j + 1];
-                                        values[j + 1] = values[j];
-                                        values[j] = temp;
 
-                                        temp_char = keys[j + 1];
-                                        keys[j + 1] = keys[j];
-                                        keys[j] = temp_char;
+                            if (Convert.ToInt32(textBox2.Text) == 1)
+                            {
+                                // Sort by keys
+                                for (int i = 0; i < values.Count; i++)
+                                {
+                                    for (int j = 0; j < values.Count - 1; j++)
+                                    {
+                                        if (values[j] > values[j + 1])
+                                        {
+                                            temp = values[j + 1];
+                                            values[j + 1] = values[j];
+                                            values[j] = temp;
+
+                                            temp_char = keys[j + 1];
+                                            keys[j + 1] = keys[j];
+                                            keys[j] = temp_char;
+                                        }
                                     }
                                 }
                             }
+                            else // Sort by values
+                            {
+                                for (int i = 0; i < values.Count; i++)
+                                {
+                                    for (int j = 0; j < values.Count - 1; j++)
+                                    {
+                                        if (keys[j] > keys[j + 1])
+                                        {
+                                            temp = values[j + 1];
+                                            values[j + 1] = values[j];
+                                            values[j] = temp;
 
+                                            temp_char = keys[j + 1];
+                                            keys[j + 1] = keys[j];
+                                            keys[j] = temp_char;
+                                        }
+                                    }
+                                }
+                            }
                             for (int i = 0; i < keys.Count; i++)
                             {
                                 sw.Write("" + keys[i] + " = " + values[i] + " ");
@@ -256,6 +305,11 @@ namespace Lab4Forms
             label2.ForeColor = Color.White;
             label2.Text = "<- number of rows to read";
             timer1.Stop();
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

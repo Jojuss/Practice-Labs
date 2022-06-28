@@ -12,3 +12,10 @@ C:\Users\user\Desktop\Practice Labs\Lab3\obj\Debug\Lab3.csproj.AssemblyReference
 C:\Users\user\Desktop\Practice Labs\Lab3\obj\Debug\Lab3.csproj.CoreCompileInputs.cache
 C:\Users\user\Desktop\Practice Labs\Lab3\obj\Debug\Lab3.exe
 C:\Users\user\Desktop\Practice Labs\Lab3\obj\Debug\Lab3.pdb
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab3\bin\Debug\Lab3.exe.config
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab3\bin\Debug\Lab3.exe
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab3\bin\Debug\Lab3.pdb
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab3\obj\Debug\Lab3.csproj.AssemblyReference.cache
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab3\obj\Debug\Lab3.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab3\obj\Debug\Lab3.exe
+C:\Users\user\Desktop\Practice\Practice-Labs-main\Lab3\obj\Debug\Lab3.pdb

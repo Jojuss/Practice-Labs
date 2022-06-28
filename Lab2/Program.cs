@@ -40,7 +40,7 @@ namespace Lab2
 
                                         Array1D a1d = new Array1D(n, min, max);
                                         Console.WriteLine("\nAnswer: " + String.Join(" ", a1d.solve_task1()) + "\n\nFrom generated array:");
-                                        a1d.print();
+                                        a1d.print(a1d.n);
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -66,7 +66,7 @@ namespace Lab2
 
                                         Array1D a1d = new Array1D(11, min, max);
                                         Console.WriteLine("\nAnswer: " + Convert.ToString(a1d.solve_task2()) + "\n\nFrom generated array: ");
-                                        a1d.print();
+                                        a1d.print(a1d.n);
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -93,10 +93,10 @@ namespace Lab2
 
                                         Array1D a1d = new Array1D(n, min, max);
                                         Console.WriteLine("Generated array: ");
-                                        a1d.print();
+                                        a1d.print(a1d.n);
                                         a1d.solve_task3();
                                         Console.WriteLine("Solved array: ");
-                                        a1d.print();
+                                        a1d.print(a1d.n);
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -123,10 +123,10 @@ namespace Lab2
 
                                         Array1D a1d = new Array1D(n, min, max);
                                         Console.WriteLine("Generated array: ");
-                                        a1d.print();
+                                        a1d.print(a1d.n);
                                         a1d.solve_task4();
                                         Console.WriteLine("Changed array: ");
-                                        a1d.print();
+                                        a1d.print(a1d.n);
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -151,11 +151,10 @@ namespace Lab2
                                         int min = Convert.ToInt32(Console.ReadLine());
                                         int max = Convert.ToInt32(Console.ReadLine());
 
-                                        Array1D a1d = new Array1D(n, min, max);
+                                        Array1D a1d = new Array1D(n * 2, min, max);
                                         Console.WriteLine("\nGenerated array: ");
-                                        a1d.print();
+                                        a1d.print(a1d.n / 2);
                                         a1d.solve_task5();
-                                        Console.WriteLine("\nChanged array: ");
                                         anyExceptions = false;
                                     }
                                     catch (Exception ex)
@@ -180,9 +179,9 @@ namespace Lab2
                                         int min = Convert.ToInt32(Console.ReadLine());
                                         int max = Convert.ToInt32(Console.ReadLine());
 
-                                        Array1D a1d = new Array1D(n, min, max);
+                                        Array1D a1d = new Array1D(n * 2, min, max);
                                         Console.WriteLine("\nGenerated array: ");
-                                        a1d.print();
+                                        a1d.print(a1d.n / 2);
                                         Console.WriteLine("\nChanged array: ");
                                         a1d.solve_task6();
                                         anyExceptions = false;
@@ -211,7 +210,7 @@ namespace Lab2
 
                                         Array1D a1d = new Array1D(n, min, max);
                                         Console.WriteLine("\nGenerated array: ");
-                                        a1d.print();
+                                        a1d.print(a1d.n);
                                         Console.WriteLine("\nChanged array: ");
                                         a1d.solve_task7();
                                         anyExceptions = false;
@@ -240,7 +239,7 @@ namespace Lab2
 
                                         Array1D a1d = new Array1D(n, min, max);
                                         Console.WriteLine("\nGenerated array: ");
-                                        a1d.print();
+                                        a1d.print(a1d.n);
                                         Console.WriteLine("\nChanged array: ");
                                         a1d.solve_task8();
                                         anyExceptions = false;

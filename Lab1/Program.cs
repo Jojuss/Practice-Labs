@@ -85,7 +85,7 @@ namespace Lab1
                                         int a = Convert.ToInt32(Console.ReadLine());
                                         int b = Convert.ToInt32(Console.ReadLine());
 
-                                        if (b % a == 0) Console.WriteLine("Divisible.");
+                                        if ((a != 0) && b % a == 0) Console.WriteLine("Divisible.");
                                         else Console.WriteLine("Indivisible.");
                                         anyExceptions = false;
                                         Console.WriteLine("Press any key to return to menu...");
@@ -111,7 +111,7 @@ namespace Lab1
                                         int b = Convert.ToInt32(Console.ReadLine());
                                         int c = Convert.ToInt32(Console.ReadLine());
 
-                                        if ((a + b + c) % (b - a) == 0) Console.WriteLine("Divisible.");
+                                        if ((b - a) != 0 && (a + b + c) % (b - a) == 0) Console.WriteLine("Divisible.");
                                         else Console.WriteLine("Indivisible.");
                                         anyExceptions = false;
                                         Console.WriteLine("Press any key to return to menu...");
