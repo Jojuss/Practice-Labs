@@ -142,7 +142,7 @@ namespace Lab5
                                         int m = Convert.ToInt32(Console.ReadLine());
                                         Array2D array = new Array2D(n, m, true);
                                         Console.WriteLine("\nArray:\n" + array.ToString());
-                                        array.solve2();
+                                        //array.solve2();
                                         Console.WriteLine("\nSolved array:\n" + array.ToString());
                                         Console.WriteLine("\nPress any key to return...");
                                         Console.ReadKey();

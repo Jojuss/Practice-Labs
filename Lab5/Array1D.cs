@@ -9,11 +9,13 @@ namespace Lab5
     class Array1D
     {
         protected int[] a;
+        public int length;
         public Array1D(int n)
         {
             this.a = new int[n];
             Random rand = new Random();
             for (int i = 0; i < n; i++) a[i] = rand.Next(-10, 11);
+            this.length = n;
         }
 
         public void solve1()
@@ -27,6 +29,18 @@ namespace Lab5
         public override string ToString()
         {
             return String.Join(" ", a);
+        }
+
+        public void randomize()
+        {
+            Random rand = new Random();
+            for (int i = 0; i < a.Length; i++)
+            {
+                int j = rand.Next(0, this.length);
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
         }
     }
 }
